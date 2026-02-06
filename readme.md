@@ -5,7 +5,7 @@
 - [ ] 2.2. Allow users to change their password
 
 ### Megan
-- [ ] 3.1 Allow users to view a menu.
+- [x] 3.1 Allow users to view a menu.
 - [ ] 3.2 Allow users to place orders through the app.
 
 
