@@ -8,8 +8,10 @@
 - [x] 3.1 Allow users to view a menu.
 - [ ] 3.2 Allow users to place orders through the app.
 
-
 ### Poofadoof
+- [ ] Track loyalty points
+- [ ] View loyalty points
 
 ### SHROTkich
-
+- [ ] Allow card payments
+- [ ] Allow cash payments
