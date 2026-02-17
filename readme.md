@@ -9,8 +9,8 @@
 - [ ] 3.2 Allow users to place orders through the app.
 
 ### Poofadoof
-- [ ] Track loyalty points
-- [ ] View loyalty points
+- [ ] 5.1. Track accrual of loyalty points based on purchases.
+- [ ] 5.2. View loyalty points total.
 
 ### SHROTkich
 - [ ] Allow card payments
