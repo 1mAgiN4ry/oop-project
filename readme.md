@@ -10,6 +10,8 @@
 
 
 ### Poofadoof
+- [ ] 5.1. Track accrual of loyalty points based on purchases.
+- [ ] 5.2. View loyalty points total.
 
 ### SHROTkich
 
