@@ -1,3 +1,5 @@
+package MenuSystem;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.HashSet;
@@ -9,7 +11,7 @@ public class MenuManager {
 
     public MenuManager() {
         menuList = new HashMap<>();
-        int incrementedID = 1;
+        itemID = 1;
 
         // Add items to Menu
         addItem("Bruschetta",9.99, "The famous Italian appetiser", "Starter");
@@ -46,7 +48,8 @@ public class MenuManager {
             System.out.print(" -- " + tempCategoriesArray[i] + " -- \n");
             for (MenuItem menuItem : menuList.values()) { // Iterate through menu items
                 if (menuItem.getCategory() == tempCategoriesArray[i]) { // If item's category = current category iteration loop...
-                    System.out.printf("%-15s £%-9.2f %-55s%n", // Defines size of 'columns' | NOTE: If too many characters are in a column, this needs editing.
+                    System.out.printf("%-10s %-15s £%-9.2f %-55s%n", // Defines size of 'columns' | NOTE: If too many characters are in a column, this needs editing.
+                            menuItem.getId(),
                             menuItem.getName(), // Calls functions to display information in console
                             menuItem.getPrice(),
                             menuItem.getDescription());
