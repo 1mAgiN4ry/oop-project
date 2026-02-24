@@ -15,11 +15,12 @@
     </properties>
 
     <dependencies>
-        <!-- Argon2 for password hashing -->
+        <!-- Source: https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
         <dependency>
-            <groupId>de.mkammerer</groupId>
-            <artifactId>argon2-jvm</artifactId>
-            <version>2.12</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>7.1.0-M2</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- SQLite JDBC driver -->
