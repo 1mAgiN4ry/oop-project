@@ -1,44 +1,46 @@
 package OrderingSystem;
+
 import MenuSystem.*;
 import UserSystem.User;
+import java.util.ArrayList;
 
 public class Order {
+    // ----/ Class Variables /----
     private int orderID;
-    private MenuItem[] orderItems;
-    private MenuManager menuManager;
+    private ArrayList<MenuItem> orderItems;
+    //private MenuManager menuManager;
     private User orderUser;
     private Double orderTotalCost;
-    private orderStatusEnum orderStatus;
-    private enum orderStatusEnum {
-        IN_PROGRESS("Customer currently ordering"),
-        UNPAID("Order submitted and unpaid"),
-        COMPLETED("Order submitted and paid"),
-        CANCELED("Order cancelled");
+    private OrderStatus orderStatus;
 
-        private String description;
-
-        orderStatusEnum(String description) { // Constructor for Enum
-            this.description = description;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
-
-    public Order(Integer OrderID, MenuManager menuManagerRef, User orderUserRef) {
-        this.orderID = OrderID;
-        this.menuManager = menuManagerRef;
+    // ----/ Constructor /----
+    public Order(Integer orderID, MenuManager menuManagerRef, User orderUserRef) {
+        this.orderID = orderID;
         this.orderUser = orderUserRef;
         orderTotalCost = 0.0;
-        orderStatus = orderStatusEnum.IN_PROGRESS;
+        orderStatus = OrderStatus.IN_PROGRESS;
+        orderItems = new ArrayList<MenuItem>();
     }
 
-    public void addOrderItem(Integer itemID) {
-        MenuItem addedItem;
-        addedItem = menuManager.menuList.get(itemID); // Set the 'added item' by grabbing the menu list using the stated item ID
-        orderTotalCost =+ addedItem.getPrice(); // Add cost of item
+    // ----/ Methods /----
+    public Integer getOrderID() {
+        return orderID;
+    }
 
+    public Object addOrderItem(MenuItem menuItem) {
+    if (orderStatus == OrderStatus.IN_PROGRESS) { // If the order is in progress, add item
+        Object addedItemInfo;
+        addedItemInfo = orderItems.add(menuItem);
+        return addedItemInfo;
+    } else {
+        System.out.println("Order has already been added or cancelled."); // Not sure how this could be printed, but provides explanation in case it is
+        return null;
+    }
+
+    }
+
+    public ArrayList<MenuItem> getOrderItems() {
+        return orderItems;
     }
 
     public Double calculateOrderTotal() {
@@ -58,8 +60,10 @@ public class Order {
     }
 
     public void completeOrder() {
-        // Send to database / log manager
-        orderStatus = orderStatusEnum.COMPLETED;
+        // Send to database / log manager here?
+
+        orderTotalCost = calculateOrderTotal(); // Calculate total
+        orderStatus = OrderStatus.COMPLETED; // Set order status
     }
 }
 
