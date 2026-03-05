@@ -1,8 +1,5 @@
 package MenuSystem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MenuItem {
     private final int id;
     private final String name;
