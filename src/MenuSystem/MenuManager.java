@@ -1,14 +1,14 @@
 package MenuSystem;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.HashSet;
 
 public class MenuManager {
-    public int itemID; // Incremented on each item added to menu
-    public Map<Integer, MenuItem> menuList;
-    private HashSet<String> itemCategories;
+    // ----/ Class Variables /----
+    private int itemID; // Incremented on each item added to menu
+    private HashMap<Integer, MenuItem> menuList;
 
+    // ----/ Constructor /----
     public MenuManager() {
         menuList = new HashMap<>();
         itemID = 1;
@@ -20,17 +20,15 @@ public class MenuManager {
         addItem("Coffee",15.99, "A rich Italian-blend that gives you a taste of Italy", "Drink");
         addItem("Salad",8.99, "Get your veggies in!", "Starter");
 
-
-        // Call function to calculate unique categories - retrieved at instantiation as oppose to showMenu() call for efficiency
-        itemCategories = calcItemCategories();
     }
 
-    private HashSet<String> calcItemCategories() {
-        HashSet<String> tempCategories = new HashSet<>();
-        for (MenuItem menuItem : menuList.values()) { // Iterates through list of menu items, adds unique categories to a list using HashSet
-            tempCategories.add(menuItem.getCategory());
-        }
-        return tempCategories;
+    // ----/ Methods /----
+    public MenuItem getMenuItem(int index) {
+        return menuList.get(index);
+    }
+
+    public HashMap<Integer,MenuItem> getAllItems() {
+        return menuList;
     }
 
     private void addItem(String pName, double pPrice, String pDescription, String pCategory) {
@@ -38,26 +36,5 @@ public class MenuManager {
         menuList.put(itemID, menuItem);
         itemID++;
     }
-
-    public void showMenu() {
-        String[] tempCategoriesArray = itemCategories.toArray(new String[itemCategories.size()]); // Used as a reference to match item categories against
-
-        System.out.print("------- Gino's Menu -------\n");
-        // Code for sorting menu items into their categories
-        for ( int i = 0; i < itemCategories.size(); i++ ) { // Increment counter on each iteration through menu items
-            System.out.print(" -- " + tempCategoriesArray[i] + " -- \n");
-            for (MenuItem menuItem : menuList.values()) { // Iterate through menu items
-                if (menuItem.getCategory() == tempCategoriesArray[i]) { // If item's category = current category iteration loop...
-                    System.out.printf("%-10s %-15s £%-9.2f %-55s%n", // Defines size of 'columns' | NOTE: If too many characters are in a column, this needs editing.
-                            menuItem.getId(),
-                            menuItem.getName(), // Calls functions to display information in console
-                            menuItem.getPrice(),
-                            menuItem.getDescription());
-                }
-            }
-        }
-
-    }
-
 
 }
