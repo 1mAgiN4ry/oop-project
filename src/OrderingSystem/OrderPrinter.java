@@ -17,16 +17,24 @@ public class OrderPrinter {
                     item.getPrice());
         }
 
-        System.out.println("    Order Total:\n£" + order.calculateOrderTotal());
+        System.out.println("Order Total: \n£" + order.calculateOrderTotal());
     }
 
     public void printItemAdded(boolean success) {
         if (success) {
-            System.out.println("Item added! - Type 'Show' to show your current Order");
+            System.out.println("Item added!\nType 'Show' to show your current Order, or 'Confirm' to confirm your order.");
         } else {
             System.out.println("Invalid item number. Please try again.");
         }
 
+    }
+
+    public void printOrderCompleted() {
+        System.out.println("Order confirmed!");
+    }
+
+    public void printOrderSucmitFailed() {
+        System.out.println("Order failed to submit. Please try again.");
     }
 
     public void printOrderCancelled() {

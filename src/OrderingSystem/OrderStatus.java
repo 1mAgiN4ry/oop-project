@@ -1,6 +1,7 @@
 package OrderingSystem;
 
 public enum OrderStatus {
+    EMPTY("Order currently contains no items."),
     IN_PROGRESS("Customer currently ordering"),
     UNPAID("Order submitted and unpaid"),
     COMPLETED("Order submitted and paid");

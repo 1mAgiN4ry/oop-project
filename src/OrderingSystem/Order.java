@@ -8,17 +8,16 @@ public class Order {
     // ----/ Class Variables /----
     private int orderID;
     private ArrayList<MenuItem> orderItems;
-    //private MenuManager menuManager;
     private User orderUser;
     private Double orderTotalCost;
     private OrderStatus orderStatus;
 
     // ----/ Constructor /----
-    public Order(Integer orderID, MenuManager menuManagerRef, User orderUserRef) {
+    public Order(Integer orderID, User orderUserRef) {
         this.orderID = orderID;
         this.orderUser = orderUserRef;
         orderTotalCost = 0.0;
-        orderStatus = OrderStatus.IN_PROGRESS;
+        orderStatus = OrderStatus.EMPTY;
         orderItems = new ArrayList<MenuItem>();
     }
 
@@ -27,10 +26,15 @@ public class Order {
         return orderID;
     }
 
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
     public Object addOrderItem(MenuItem menuItem) {
-    if (orderStatus == OrderStatus.IN_PROGRESS) { // If the order is in progress, add item
+    if (orderStatus == OrderStatus.IN_PROGRESS || orderStatus == OrderStatus.EMPTY) { // If the order is in progress, add item
         Object addedItemInfo;
-        addedItemInfo = orderItems.add(menuItem);
+        addedItemInfo = orderItems.add(menuItem); // Add the item to the order and save the item's info to return it
+        if (orderStatus == OrderStatus.EMPTY) { orderStatus = OrderStatus.IN_PROGRESS; } // If it was empty, set to in progress now the item is added
         return addedItemInfo;
     } else {
         System.out.println("Order has already been added or cancelled."); // Not sure how this could be printed, but provides explanation in case it is
@@ -48,22 +52,22 @@ public class Order {
         for (MenuItem item : orderItems) {
             tempOrderTotal += item.getPrice();
         }
-        return tempOrderTotal;
+        orderTotalCost = tempOrderTotal;
+        return orderTotalCost;
     }
 
-    public void showCurrentOrder()
-    {
-        for (MenuItem item : orderItems) {
-            System.out.println(item.getName());
-            System.out.println(item.getPrice());
+    public boolean finaliseOrder() {
+        if  (orderStatus == OrderStatus.IN_PROGRESS) {
+            // Send to database / log manager here?
+
+            orderTotalCost = calculateOrderTotal(); // Calculate total
+            orderStatus = OrderStatus.UNPAID; // Set order status
+            return true;
+        } else {
+            return false;
         }
+
     }
 
-    public void completeOrder() {
-        // Send to database / log manager here?
-
-        orderTotalCost = calculateOrderTotal(); // Calculate total
-        orderStatus = OrderStatus.COMPLETED; // Set order status
-    }
 }
 
