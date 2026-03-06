@@ -63,6 +63,7 @@ public class DatabaseManager {
                     CustomerID INTEGER NOT NULL,
                     PurchaseTime TEXT NOT NULL DEFAULT (datetime('now')),
                     OrderStatus TEXT NOT NULL,
+                    PaymentType TEXT NOT NULL,
                     FOREIGN KEY (CustomerID) REFERENCES Customers(UID)
                 );
             """);
