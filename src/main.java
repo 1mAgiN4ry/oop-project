@@ -5,6 +5,7 @@ import OrderingSystem.OrderManager;
 import OrderingSystem.Order;
 import OrderingSystem.OrderPrinter;
 import UserSystem.User;
+import PaymentSystem.PaymentCard;
 
 void main(String[] args) {
     // Variables
@@ -69,6 +70,9 @@ void main(String[] args) {
                     }
 
                 }
+                System.out.println("what about this?");
+                PaymentCard.payingCard();
+
                 break;
 
                 // Code for other functionality goes in its own case (E.g. create / delete account)
