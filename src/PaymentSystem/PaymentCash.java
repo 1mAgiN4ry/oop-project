@@ -16,6 +16,11 @@ public class PaymentCash {
     * get compare balance against price
     * if balance larger than price subtract and return new balance
     *
+    * should the classes have a private variable
+    * for the variables they need to from other classes
+    * or should they call them in the methods and not keep them anywhere?
+    *
+    *
     * */
 
 
