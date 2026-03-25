@@ -7,6 +7,7 @@ public class User {
     private String userFirstName;
     private String userLastName;
     private String userEmail;
+    private Int userLoyaltyPoints;
 
     private Random rand = new Random();            // Temporary
 
@@ -14,11 +15,16 @@ public class User {
         userID = rand.nextInt(100000000);   // Temporary
         userFirstName = "Barry";                  // Temporary
         userLastName = "Rajesh";                  // Temporary
-        userEmail = "BRajesh03@gmail.com";        // Temporary
+        userEmail = "BRajesh03@gmail.com";  // Temporary
+        userLoyaltyPoints = 0;  // Temporary
     }
 
     public Integer getUserID() {
 
         return userID;
+    }
+
+    public Integer getUserLoyaltyPoints() {
+        return userLoyaltyPoints;
     }
 }

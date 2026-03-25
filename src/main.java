@@ -4,6 +4,7 @@ import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
 import OrderingSystem.Order;
 import OrderingSystem.OrderPrinter;
+import LoyaltySystem.LoyaltyView;
 import UserSystem.User;
 
 void main(String[] args) {
@@ -12,6 +13,7 @@ void main(String[] args) {
     OrderManager orderManager = new OrderManager(menuManager, 0);
     OrderPrinter orderPrinter = new OrderPrinter();
     MenuPrinter menuPrinter = new MenuPrinter();
+    LoyaltyView loyaltyView = new LoyaltyView();
     int functionSwitch;
 
     User exampleUser = new User(); // Temporary example user
@@ -24,6 +26,7 @@ void main(String[] args) {
         System.out.println("""
         Please select an option:
         1: View Menu & start an Order
+        2: View Loyalty Points
         """);
         functionSwitch = input.nextInt(); // Gets user input
         input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
@@ -70,11 +73,10 @@ void main(String[] args) {
 
                 }
                 break;
+            case 2:
+                loyaltyView.LoyaltyPointsView();
+                break;
 
-                // Code for other functionality goes in its own case (E.g. create / delete account)
-//            case 2:
-//
-//                break;
 
             default:
                 System.out.println("Please select a valid option.");
