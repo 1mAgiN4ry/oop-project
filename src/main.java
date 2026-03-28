@@ -4,8 +4,11 @@ import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
 import OrderingSystem.Order;
 import OrderingSystem.OrderPrinter;
+import PaymentSystem.PaymentCash;
 import UserSystem.User;
 import PaymentSystem.PaymentCard;
+import PaymentSystem.PaymentCash;
+import PaymentSystem.ReceiptPrinter;
 
 void main(String[] args) {
     // Variables
@@ -34,6 +37,7 @@ void main(String[] args) {
                 menuPrinter.printMenu(menuManager.getAllItems());
                 Order currentOrder = orderManager.startNewOrder(exampleUser);
                 orderPrinter.startOrder();
+                ReceiptPrinter currentPrinter = new ReceiptPrinter(currentOrder); //potench temporary printer object for receipts
 
                 boolean ordering = true;
 
@@ -71,7 +75,9 @@ void main(String[] args) {
 
                 }
                 System.out.println("what about this?");
-                PaymentCard.payingCard();
+                PaymentCash.cashPaying(currentOrder);
+                currentPrinter.mainPrinter();
+
 
                 break;
 

@@ -1,6 +1,8 @@
 package PaymentSystem;
 
-import java.util.Random;
+import OrderingSystem.Order;
+
+
 import java.util.Scanner;
 
 public class PaymentCash {
@@ -9,6 +11,11 @@ public class PaymentCash {
     //simple cost - inputAmount class
 
     //fields
+
+    static double totalPrice;
+    static Scanner input = new Scanner(System.in);
+    private static double givenBalance;
+
 
     /*
     * get total price of items
@@ -24,18 +31,13 @@ public class PaymentCash {
     * */
 
 
-    private static double[] costs = {24.65, 56.19, 6.89};
-    static Scanner input = new Scanner(System.in);
-    private static double givenBalance;
     //constructor
+    public void PaymentCard(){
 
+    }
 
     //methods
 
-    public void main(String[] args){
-        askPayment();
-        calculate();
-    }
 
     private void askPayment(){
         System.out.println("Gib monet: ");
@@ -43,21 +45,35 @@ public class PaymentCash {
 
     }
 
-    private void calculate(){
-        for (int i = 0; i < 100; i++) {
-            int b = coinFlip();
-            if (givenBalance >= costs[b]) {
-                System.out.println("You did it!!!");
-            } else {
-                System.out.println("Not enough money dummy");
+    public static void cashPaying(Order order){
+        totalPrice = order.calculateOrderTotal();
+        System.out.println("Total price: " + totalPrice);
+        System.out.println("Please provide payment:");
+        givenBalance = input.nextDouble();
+        calculate(totalPrice, givenBalance);
+
+
+
+        // get price, show price, ask for payment, get payment,
+        // compare payment [if enough subtract total from given, return given]
+        // [if not tell not enough and try again / print failure]
+        // print receipt
+        //
+        // note before work (wed 25.3) somehow find out how to connect it in the bigger system
+        // after selecting desired items maybe switch for payment, ask what payment type then call payment type class
+        // or alt ask others for ideas
+        // also work on card and start printer
+
+    }
+
+    private static void calculate(double price, double balance){
+            if (balance >= price){
+                balance = balance - price;
+                System.out.println("Thank you, your change is: " + balance);
+                //call printer for receipt
+        } else {
+                System.out.println("Unsufficient funds to cover the cost.");
+                //call printer for failed receipt
             }
-        }
-    }
-
-    private int coinFlip(){
-        Random random = new Random();
-        int coin = random.nextInt(0,3);
-        return coin;
-    }
-
+     }
 }
