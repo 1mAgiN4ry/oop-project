@@ -1,20 +1,20 @@
 import UserSystem.User;
 
 public class LoyaltyManager{
-    User currentUser = new User();
 
-    public GivePoints(double total){
+    public GivePoints(double total, int User){
         int CurrentPoints = currentUser.getUserLoyaltyPoints();
+        // £1 = 1 point, data loss intentional.
         int PointsEarned = (int) total;
         int newPoints = CurrentPoints + PointsEarned;
 
         // Set user's loyalty points to CurrentPoints + PointsEarned
 
-        System.System.out.println("\nLoyalty points given: " + newPoints + "\n");
+        System.out.println("\nLoyalty points given: " + newPoints + "\n");
         ViewPoints();
     }
 
     void ViewPoints(){
-        System.System.out.println("\nCurrent loyalty points: " + currentUser.getUserLoyaltyPoints() + "\n");
+        System.out.println("\nCurrent loyalty points: " + currentUser.getUserLoyaltyPoints() + "\n");
     };
 }
