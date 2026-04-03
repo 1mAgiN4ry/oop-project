@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
 out/
+target/
 !**/src/main/**/out/
 !**/src/test/**/out/
 !.mvn/wrapper/maven-wrapper.jar
@@ -38,3 +39,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Internal ###
+*.db
