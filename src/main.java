@@ -1,22 +1,49 @@
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import AccountSystem.*; // CHANGE THIS LATER PLEASE GOD
+import DBSystem.UserRepo;
 import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
 import OrderingSystem.Order;
 import OrderingSystem.OrderPrinter;
-import UserSystem.User;
+import DBSystem.DatabaseManager;
 
 void main(String[] args) {
-    // Variables
+    // --- Variables ---
+    // Menu System
     MenuManager menuManager = new MenuManager();
+    MenuPrinter menuPrinter = new MenuPrinter();
+
+    // Order System
     OrderManager orderManager = new OrderManager(menuManager, 0);
     OrderPrinter orderPrinter = new OrderPrinter();
-    MenuPrinter menuPrinter = new MenuPrinter();
+
+    // Database
+    DatabaseManager db = new DatabaseManager("db.db");
+    db.connect();
+    try {
+        db.initSchema();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    // Account System
+    User testuser = new User (
+            69,
+            new Username("skibidi"),
+            new Password("Skibidi_Toilet420", false),
+            0,
+            new Email("hello@world.com"),
+            new PhoneNumber("123456789")
+    );
+    AccountPrinter accountPrinter = new AccountPrinter();
+    AccountService accountService = new AccountService(new UserRepo(db));
+    AccountUI accountUI = new AccountUI(accountService, accountPrinter);
+
     int functionSwitch;
 
-    User exampleUser = new User(); // Temporary example user
-
-    // Assume user logged in
     Scanner input = new Scanner(System.in); // Scanner for taking user input
 
     while (true) {
@@ -31,7 +58,7 @@ void main(String[] args) {
         switch (functionSwitch) {
             case 1:
                 menuPrinter.printMenu(menuManager.getAllItems());
-                Order currentOrder = orderManager.startNewOrder(exampleUser);
+                Order currentOrder = orderManager.startNewOrder(testuser);
                 orderPrinter.startOrder();
 
                 boolean ordering = true;

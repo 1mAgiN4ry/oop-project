@@ -1,7 +1,8 @@
 package OrderingSystem;
 
 import MenuSystem.*;
-import UserSystem.User;
+import AccountSystem.User;
+
 import java.util.ArrayList;
 
 public class Order {
