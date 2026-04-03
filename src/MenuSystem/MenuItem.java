@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuItem {
-    private int id;
-    private String name;
-    private double price;
-    private String description;
-    private String category;
-    private List<String> validCategories = new ArrayList<>();
+    private final int id;
+    private final String name;
+    private final double price;
+    private final String description;
+    private final String category;
 
     public MenuItem(int id, String name, double price, String description, String category) {
         this.id = id;
@@ -17,11 +16,6 @@ public class MenuItem {
         this.price = price;
         this.description = description;
         this.category = category;
-
-        // Add valid categories for menu items to be in
-        validCategories.add("Food");
-        validCategories.add("Drink");
-
     }
 
     public int getId() { return id; }
