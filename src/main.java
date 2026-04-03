@@ -51,7 +51,7 @@ void main(String[] args) {
                         if  (completed) {
                             orderPrinter.printOrderCompleted();
                         } else {
-                            orderPrinter.printOrderCancelled();
+                            orderPrinter.printOrderSubmitFailed();
                         }
                         ordering = false;
                     } else { // If input does not fit above, try parsing for an integer

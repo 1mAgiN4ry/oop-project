@@ -33,7 +33,7 @@ public class OrderPrinter {
         System.out.println("Order confirmed!");
     }
 
-    public void printOrderSucmitFailed() {
+    public void printOrderSubmitFailed() {
         System.out.println("Order failed to submit. Please try again.");
     }
 
