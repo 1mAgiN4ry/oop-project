@@ -35,7 +35,7 @@ public class DatabaseManager {
     public void initSchema() throws SQLException {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("""
-                CREATE TABLE IF NOT EXISTS Users (
+                CREATE TABLE IF NOT EXISTS Customers (
                     UID INTEGER PRIMARY KEY AUTOINCREMENT,
                     Username TEXT NOT NULL UNIQUE,
                     Password TEXT NOT NULL,

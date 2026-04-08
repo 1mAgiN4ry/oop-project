@@ -38,12 +38,13 @@ public class UserRepo {
         }
     }
 
-    public boolean verifyPassword(Username username, Password password) {
+    public boolean verifyPassword(Username username, String password) {
         String sql = "SELECT Password FROM Customers WHERE Username = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, username.getName());
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) return password.verify(rs.getString("Password"));
+                Password dbPassword = new Password(rs.getString("Password"), true);
+                if (rs.next()) return dbPassword.verify(password, rs.getString("Password"));
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to verify password", e);

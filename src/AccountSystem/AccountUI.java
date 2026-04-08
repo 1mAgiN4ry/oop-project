@@ -68,7 +68,7 @@ public class AccountUI {
         List<String> errors = new ArrayList<>();
 
         Username username = null;
-        Password password = null;
+        String password = "";
         User user = null;
 
         do {
@@ -80,7 +80,9 @@ public class AccountUI {
             } catch (IllegalArgumentException e) { errors.add(e.getMessage()); }
 
             try {
-                password = new Password(printer.getInput("Enter password: "), false);
+                password = printer.getInput("Enter password: ");
+                // Validate
+                new Password(password, false);
             } catch (IllegalArgumentException e) { errors.add(e.getMessage()); }
 
             try {

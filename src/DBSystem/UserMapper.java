@@ -18,7 +18,7 @@ public class UserMapper {
         if (rs.getString("PhoneNumber") != null) {
             phoneNumber = new PhoneNumber(rs.getString("PhoneNumber"));
         } else {
-            phoneNumber = new PhoneNumber("");
+            phoneNumber = null;
         }
 
         return new User(uid, username, password, loyaltyPoints, email, phoneNumber);

@@ -14,7 +14,7 @@ public class AccountService {
         userRepo.createCustomer(username, password, email);
     }
 
-    public User login(Username username, Password password) {
+    public User login(Username username, String password) {
         if (!userRepo.verifyUsername(username)) throw new RuntimeException("Username not found");
         if (!userRepo.verifyPassword(username, password)) throw new RuntimeException("Incorrect password");
         return userRepo.getUserData(username);
