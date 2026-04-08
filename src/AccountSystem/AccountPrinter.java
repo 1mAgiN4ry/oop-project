@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class AccountPrinter {
     private final Scanner scanner = new Scanner(System.in);
-    private final String separator = "------------------------------";
 
     public void displayTitle(String title) {
         clearScreen();
@@ -35,9 +34,11 @@ public class AccountPrinter {
     }
 
     public void displaySeparator() {
+        String separator = "------------------------------";
         System.out.println(separator);
     }
 
+    // Only works in terminals supporting ANSI escape sequences
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
     }

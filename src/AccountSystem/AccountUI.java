@@ -12,7 +12,7 @@ public class AccountUI {
         this.printer = printer;
     }
 
-    public void mainMenu() {
+    public int mainMenu() {
         List<String> options = List.of("Create Account", "Login", "Exit");
         int choice = -1;
 
@@ -26,11 +26,7 @@ public class AccountUI {
             }
         } while (choice < 0 || choice >= options.size());
 
-        switch (choice) {
-            case 0 -> createAccount();
-            case 1 -> login();
-            case 2 -> {} // caller handles exit
-        }
+        return choice;
     }
 
     public void createAccount() {

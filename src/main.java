@@ -26,22 +26,28 @@ void main(String[] args) {
     try {
         db.initSchema();
     } catch (SQLException e) {
-        e.printStackTrace();
+        throw new RuntimeException("Failed to init database schema ");
     }
 
     // Account System
-    User testuser = new User (
-            69,
-            new Username("skibidi"),
-            new Password("Skibidi_Toilet420", false),
-            0,
-            new Email("hello@world.com"),
-            new PhoneNumber("123456789")
-    );
     AccountPrinter accountPrinter = new AccountPrinter();
     AccountService accountService = new AccountService(new UserRepo(db));
     AccountUI accountUI = new AccountUI(accountService, accountPrinter);
 
+    User user = null;
+    int choice;
+
+    do {
+        choice = accountUI.mainMenu();
+
+        switch (choice) {
+            case 0 -> accountUI.createAccount();
+            case 1 -> user = accountUI.login();
+            case 2 -> System.exit(0);
+        }
+    } while (choice != 1);
+
+    // Lovecraft's code (not as if the code above is good either)
     int functionSwitch;
 
     Scanner input = new Scanner(System.in); // Scanner for taking user input
@@ -58,7 +64,7 @@ void main(String[] args) {
         switch (functionSwitch) {
             case 1:
                 menuPrinter.printMenu(menuManager.getAllItems());
-                Order currentOrder = orderManager.startNewOrder(testuser);
+                Order currentOrder = orderManager.startNewOrder(user);
                 orderPrinter.startOrder();
 
                 boolean ordering = true;
