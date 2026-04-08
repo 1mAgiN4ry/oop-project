@@ -57,6 +57,7 @@ void main(String[] args) {
         System.out.println("""
         Please select an option:
         1: View Menu & start an Order
+        9: Exit
         """);
         functionSwitch = input.nextInt(); // Gets user input
         input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
@@ -103,12 +104,10 @@ void main(String[] args) {
 
                 }
                 break;
-
-                // Code for other functionality goes in its own case (E.g. create / delete account)
-//            case 2:
-//
-//                break;
-
+            // case X: for additional functionality
+            case 9:
+                db.disconnect();
+                System.exit(0);
             default:
                 System.out.println("Please select a valid option.");
         }
