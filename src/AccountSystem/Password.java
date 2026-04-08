@@ -10,11 +10,11 @@ public class Password {
 
     public Password(String input, boolean fromDB) {
         if (!fromDB) {
-            if (input.length() < 8) throw new IllegalArgumentException("Too short");
-            if (!input.matches(".*[A-Z].*")) throw new IllegalArgumentException("Needs uppercase");
-            if (!input.matches(".*[a-z].*")) throw new IllegalArgumentException("Needs lowercase");
-            if (!input.matches(".*[0-9].*")) throw new IllegalArgumentException("Needs number");
-            if (!input.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?].*")) throw new IllegalArgumentException("Needs special character");
+            if (input.length() < 8) throw new IllegalArgumentException("Password is too short");
+            if (!input.matches(".*[A-Z].*")) throw new IllegalArgumentException("Password needs uppercase");
+            if (!input.matches(".*[a-z].*")) throw new IllegalArgumentException("Password needs lowercase");
+            if (!input.matches(".*[0-9].*")) throw new IllegalArgumentException("Password needs number");
+            if (!input.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?].*")) throw new IllegalArgumentException("Password needs special character");
 
             hash = hash(input);
         } else {
