@@ -52,11 +52,15 @@ void main(String[] args) {
 
     Scanner input = new Scanner(System.in); // Scanner for taking user input
 
-    while (true) {
+    boolean shouldExit = false;
+    while (!shouldExit) {
         System.out.println(" --- Welcome to the Gino's Cafeteria App --- ");
         System.out.println("""
         Please select an option:
         1: View Menu & start an Order
+        6: View user data
+        7: Update user data
+        8: Delete account
         9: Exit
         """);
         functionSwitch = input.nextInt(); // Gets user input
@@ -68,12 +72,26 @@ void main(String[] args) {
                 orderUI.viewMenuAndStartOrder();
                 break;
             // case X: for additional functionality
+            // Somewhere here handle account deletion
+            case 6: // View user data
+                accountUI.displayUserData(user);
+                break;
+            case 7: // Update user data
+                accountUI.updateUserData(user);
+                break;
+            case 8: // Delete account
+                accountUI.deleteAccount(user);
+                // break out of the loop
+                shouldExit = true;
+                break;
             case 9: // Exit program
-                db.disconnect();
-                System.exit(0);
+                shouldExit = true;
+                break;
             default:
                 System.out.println("Please select a valid option.");
         }
     }
+
+    db.disconnect();
 }
 

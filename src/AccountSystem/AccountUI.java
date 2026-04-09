@@ -96,4 +96,45 @@ public class AccountUI {
 
         return user;
     }
+
+    public void displayUserData(User user) {
+        printer.displayTitle(user.getUsername().getName() + "'s Data");
+
+        printer.displayMessage("Loyalty Points: " + user.getLoyaltyPoints());
+        printer.displayMessage("Email: " + user.getEmail().getEmail());
+        if (user.getPhoneNumber().getNumber() != null) {
+            printer.displayMessage("Phone Number: " + user.getPhoneNumber().getNumber());
+        } else {
+            printer.displayMessage("No phone number has been added");
+        }
+    }
+
+    public void updateUserData(User user) {
+
+    }
+
+    public void deleteAccount(User user) {
+        List<String> errors = new ArrayList<>();
+
+        String password = "";
+
+        do {
+            errors.clear();
+            printer.displayTitle("Delete Account");
+
+            try {
+                password = printer.getInput("Enter password: ");
+                // Validate
+                new Password(password, false);
+            } catch (IllegalArgumentException e) { errors.add(e.getMessage()); }
+
+            try {
+                if (errors.isEmpty()) service.deleteAccount(user, password);
+            } catch (RuntimeException e) { errors.add(e.getMessage()); }
+
+            printer.displaySeparator();
+            printer.displayErrors(errors);
+
+        } while (!errors.isEmpty());
+    }
 }
