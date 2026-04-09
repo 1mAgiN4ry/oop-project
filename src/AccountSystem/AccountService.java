@@ -19,4 +19,9 @@ public class AccountService {
         if (!userRepo.verifyPassword(username, password)) throw new RuntimeException("Incorrect password");
         return userRepo.getUserData(username);
     }
+
+    public void deleteAccount(User user, String password) {
+        if (!userRepo.verifyPassword(user.getUsername(), password)) throw new RuntimeException("Incorrect password");
+        userRepo.deleteUser(user);
+    }
 }
