@@ -6,9 +6,9 @@ import DBSystem.UserRepo;
 import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
-import OrderingSystem.Order;
 import OrderingSystem.OrderPrinter;
 import DBSystem.DatabaseManager;
+import OrderingSystem.OrderUI;
 
 void main(String[] args) {
     // --- Variables ---
@@ -64,48 +64,11 @@ void main(String[] args) {
 
         switch (functionSwitch) {
             case 1:
-                menuPrinter.printMenu(menuManager.getAllItems());
-                Order currentOrder = orderManager.startNewOrder(user);
-                orderPrinter.startOrder();
-
-                boolean ordering = true;
-
-                while (ordering) {
-
-                    System.out.println("\nPlease state the number of the item you would like to order:\n");
-                    String inputString = input.nextLine();
-
-                    if  (inputString.equalsIgnoreCase("Cancel") || inputString.equalsIgnoreCase("0")) {
-                        ordering = false;
-                        orderPrinter.printOrderCancelled();
-                    } else if (inputString.equalsIgnoreCase("Show")) { // If 'show' inputted, print current order.
-                        orderPrinter.printOrder(currentOrder);
-                    } else if (inputString.equalsIgnoreCase("Confirm")) { // If 'confirm' inputted, complete order and print message, break order loop.
-                        boolean completed = orderManager.submitOrder(currentOrder);
-                        if  (completed) {
-                            orderPrinter.printOrderCompleted();
-                        } else {
-                            orderPrinter.printOrderSubmitFailed();
-                        }
-                        ordering = false;
-                    } else { // If input does not fit above, try parsing for an integer
-                        try {
-                            int inputItemNumber = Integer.parseInt(inputString);
-                            if (menuManager.getMenuItem(inputItemNumber) != null) { // If the input matches a menu item, add item to order and print message
-                                orderManager.itemToCurrentOrder(currentOrder, inputItemNumber);
-                                orderPrinter.printItemAdded(true);
-                            } else { // If the inputted number does not match a menu item, prints item invalid message
-                                orderPrinter.printItemAdded(false);
-                            }
-                        } catch (NumberFormatException e) { // Catches error and prints item invalid message
-                            orderPrinter.printItemAdded(false);
-                        }
-                    }
-
-                }
+                OrderUI orderUI = new OrderUI(menuManager, menuPrinter, orderManager, orderPrinter, user);
+                orderUI.viewMenuAndStartOrder();
                 break;
             // case X: for additional functionality
-            case 9:
+            case 9: // Exit program
                 db.disconnect();
                 System.exit(0);
             default:
