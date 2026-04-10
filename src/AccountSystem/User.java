@@ -47,7 +47,7 @@ public class User {
         this.username = new Username(username);
     }
 
-    public void setHash(String password) {
+    public void setPassword(String password) {
         this.hash = new Password(password, false);
     }
 

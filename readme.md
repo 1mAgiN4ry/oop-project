@@ -2,7 +2,12 @@
 
 ### 1mAgiN4ry
 - [x] Allow users to create an account
+- [x] Allow users to delete their account
+- [x] Allow users to add personal information to their account.
+
 - [x] Allow users to log in with a password
+- [x] Allow users to change their password
+
 - [x] Enforce password length and complexity (E.g. 8 upper & lower case characters,
   with a number & a punctuation mark)
 - [x] Password Obfuscation in app screens (E.g. Hash)
