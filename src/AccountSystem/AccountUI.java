@@ -109,8 +109,44 @@ public class AccountUI {
         }
     }
 
-    public void updateUserData(User user) {
+    public User updateUserData(User user) {
+        List<String> options = List.of(
+                "Update Username",
+                "Update Password",
+                "Update Email",
+                "Update Phone Number"
+        );
 
+        printer.displayTitle("Change user data");
+
+        int choice = -1;
+        do {
+            try {
+                choice = Integer.parseInt(printer.getInput("Enter your choice: "));
+            } catch (NumberFormatException e) {
+                printer.displayMessage("Invalid input, try again");
+                printer.displaySeparator();
+            }
+        } while (choice < 0 || choice >= options.size());
+
+        List<String> errors = new ArrayList<>();
+        do {
+            errors.clear();
+            try {
+                switch (choice) {
+                    case 0 -> user = service.updateUsername(user, printer.getInput("Enter new username: "));
+                    case 1 -> user = service.updatePassword(user, printer.getInput("Enter new password: "));
+                    case 2 -> user = service.updateEmail(user, printer.getInput("Enter new email: "));
+                    case 3 -> user = service.updatePhoneNumber(user, printer.getInput("Enter new phone number: "));
+                }
+            } catch (RuntimeException e) {
+                errors.add(e.getMessage());
+                printer.displayErrors(errors);
+            }
+        } while (!errors.isEmpty());
+
+        printer.displayMessage("Updated successfully");
+        return user;
     }
 
     public void deleteAccount(User user) {

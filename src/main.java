@@ -1,7 +1,10 @@
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import AccountSystem.*; // CHANGE THIS LATER PLEASE GOD
+import AccountSystem.AccountPrinter;
+import AccountSystem.AccountService;
+import AccountSystem.AccountUI;
+import AccountSystem.User;
 import DBSystem.UserRepo;
 import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
@@ -47,7 +50,6 @@ void main(String[] args) {
         }
     } while (choice != 1);
 
-    // Lovecraft's code (not as if the code above is good either)
     int functionSwitch;
 
     Scanner input = new Scanner(System.in); // Scanner for taking user input
@@ -77,7 +79,7 @@ void main(String[] args) {
                 accountUI.displayUserData(user);
                 break;
             case 7: // Update user data
-                accountUI.updateUserData(user);
+                user = accountUI.updateUserData(user);
                 break;
             case 8: // Delete account
                 accountUI.deleteAccount(user);
