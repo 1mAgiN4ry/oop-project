@@ -52,8 +52,17 @@ void main(String[] args) {
         Please select an option:
         1: View Menu & start an Order
         """);
-        functionSwitch = input.nextInt(); // Gets user input
-        input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
+
+        while(true) {
+            try {
+                functionSwitch = input.nextInt(); // Gets user input
+                input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
+                break;
+            } catch (InputMismatchException e) {
+                input.next();
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
 
         switch (functionSwitch) {
             case 1:
