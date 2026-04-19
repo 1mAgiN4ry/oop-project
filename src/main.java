@@ -83,7 +83,8 @@ void main(String[] args) {
                     } else if (inputString.equalsIgnoreCase("Show")) { // If 'show' inputted, print current order.
                         orderPrinter.printOrder(currentOrder);
                     } else if (inputString.equalsIgnoreCase("Confirm")) { // If 'confirm' inputted, complete order and print message, break order loop.
-                        boolean completed = orderManager.submitOrder(currentOrder);
+                        orderPrinter.printOrder(currentOrder); // Print order prior to confirmation
+                        boolean completed = orderManager.submitOrder(currentOrder); // Tries to submit, returns bool on whether successful
                         if  (completed) {
                             orderPrinter.printOrderCompleted();
                         } else {
