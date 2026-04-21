@@ -102,7 +102,7 @@ public class AccountUI {
 
         printer.displayMessage("Loyalty Points: " + user.getLoyaltyPoints());
         printer.displayMessage("Email: " + user.getEmail().getEmail());
-        if (user.getPhoneNumber().getNumber() != null) {
+        if ((user.getPhoneNumber()!= null) && (user.getPhoneNumber().getNumber()) != null) {
             printer.displayMessage("Phone Number: " + user.getPhoneNumber().getNumber());
         } else {
             printer.displayMessage("No phone number has been added");
