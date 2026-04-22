@@ -1,7 +1,8 @@
 package OrderingSystem;
 
 import MenuSystem.MenuManager;
-import UserSystem.User;
+import AccountSystem.User;
+
 import java.util.HashMap;
 
 public class OrderManager {

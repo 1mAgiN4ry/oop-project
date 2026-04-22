@@ -1,8 +1,14 @@
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import AccountSystem.AccountPrinter;
+import AccountSystem.AccountService;
+import AccountSystem.AccountUI;
+import AccountSystem.User;
+import DBSystem.UserRepo;
 import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
-import OrderingSystem.Order;
 import OrderingSystem.OrderPrinter;
 import PaymentSystem.PaymentCash;
 import UserSystem.User;
@@ -11,84 +17,86 @@ import PaymentSystem.PaymentCash;
 import PaymentSystem.ReceiptPrinter;
 
 void main(String[] args) {
-    // Variables
+    // --- Variables ---
+    // Menu System
     MenuManager menuManager = new MenuManager();
+    MenuPrinter menuPrinter = new MenuPrinter();
+
+    // Order System
     OrderManager orderManager = new OrderManager(menuManager, 0);
     OrderPrinter orderPrinter = new OrderPrinter();
-    MenuPrinter menuPrinter = new MenuPrinter();
+
+    // Database
+    DatabaseManager db = new DatabaseManager("db.db");
+    db.connect();
+    try {
+        db.initSchema();
+    } catch (SQLException e) {
+        throw new RuntimeException("Failed to init database schema ");
+    }
+
+    // Account System
+    AccountPrinter accountPrinter = new AccountPrinter();
+    AccountService accountService = new AccountService(new UserRepo(db));
+    AccountUI accountUI = new AccountUI(accountService, accountPrinter);
+
+    User user = null;
+    int choice;
+
+    do {
+        choice = accountUI.mainMenu();
+
+        switch (choice) {
+            case 0 -> accountUI.createAccount();
+            case 1 -> user = accountUI.login();
+            case 2 -> System.exit(0);
+        }
+    } while (choice != 1);
+
     int functionSwitch;
 
-    User exampleUser = new User(); // Temporary example user
-
-    // Assume user logged in
     Scanner input = new Scanner(System.in); // Scanner for taking user input
 
-    while (true) {
+    boolean shouldExit = false;
+    while (!shouldExit) {
         System.out.println(" --- Welcome to the Gino's Cafeteria App --- ");
         System.out.println("""
         Please select an option:
         1: View Menu & start an Order
+        6: View user data
+        7: Update user data
+        8: Delete account
+        9: Exit
         """);
         functionSwitch = input.nextInt(); // Gets user input
         input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
 
         switch (functionSwitch) {
             case 1:
-                menuPrinter.printMenu(menuManager.getAllItems());
-                Order currentOrder = orderManager.startNewOrder(exampleUser);
-                orderPrinter.startOrder();
-
-                ReceiptPrinter currentPrinter = new ReceiptPrinter(currentOrder); //potench temporary printer object for receipts
-                PaymentCash cashPayment = new PaymentCash(currentOrder);
-                PaymentCard cardPayment = new PaymentCard(currentOrder);
-                boolean ordering = true;
-
-                while (ordering) {
-
-                    System.out.println("\nPlease state the number of the item you would like to order:\n");
-                    String inputString = input.nextLine();
-
-                    if  (inputString.equalsIgnoreCase("Cancel") || inputString.equalsIgnoreCase("0")) {
-                        ordering = false;
-                        orderPrinter.printOrderCancelled();
-                    } else if (inputString.equalsIgnoreCase("Show")) { // If 'show' inputted, print current order.
-                        orderPrinter.printOrder(currentOrder);
-                    } else if (inputString.equalsIgnoreCase("Confirm")) { // If 'confirm' inputted, complete order and print message, break order loop.
-                        boolean completed = orderManager.submitOrder(currentOrder);
-                        if  (completed) {
-                            orderPrinter.printOrderCompleted();
-                        } else {
-                            orderPrinter.printOrderCancelled();
-                        }
-                        ordering = false;
-                    } else { // If input does not fit above, try parsing for an integer
-                        try {
-                            int inputItemNumber = Integer.parseInt(inputString);
-                            if (menuManager.getMenuItem(inputItemNumber) != null) { // If the input matches a menu item, add item to order and print message
-                                orderManager.itemToCurrentOrder(currentOrder, inputItemNumber);
-                                orderPrinter.printItemAdded(true);
-                            } else { // If the inputted number does not match a menu item, prints item invalid message
-                                orderPrinter.printItemAdded(false);
-                            }
-                        } catch (NumberFormatException e) { // Catches error and prints item invalid message
-                            orderPrinter.printItemAdded(false);
-                        }
-                    }
-
-                }
-                System.out.println("what about this?");
-                cardPayment.payingCard();
-                //cashPayment.cashPaying();
+                OrderUI orderUI = new OrderUI(menuManager, menuPrinter, orderManager, orderPrinter, user);
+                orderUI.viewMenuAndStartOrder();
                 break;
-
-                // Code for other functionality goes in its own case (E.g. create / delete account)
-//            case 2:
-//
-//                break;
-
+            // case X: for additional functionality
+            // Somewhere here handle account deletion
+            case 6: // View user data
+                accountUI.displayUserData(user);
+                break;
+            case 7: // Update user data
+                user = accountUI.updateUserData(user);
+                break;
+            case 8: // Delete account
+                accountUI.deleteAccount(user);
+                // break out of the loop
+                shouldExit = true;
+                break;
+            case 9: // Exit program
+                shouldExit = true;
+                break;
             default:
                 System.out.println("Please select a valid option.");
         }
     }
+
+    db.disconnect();
 }
 
