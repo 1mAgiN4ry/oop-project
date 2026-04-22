@@ -21,13 +21,13 @@ public class AccountService {
     }
 
     public User updateUsername(User user, String input) {
-        user.setPassword(input);
+        user.setUsername(input);
         userRepo.updateUsername(user);
         return user;
     }
 
     public User updatePassword(User user, String input) {
-        user.setUsername(input);
+        user.setPassword(input);
         userRepo.updatePassword(user);
         return user;
     }
