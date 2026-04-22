@@ -10,8 +10,11 @@ import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
 import OrderingSystem.OrderPrinter;
-import DBSystem.DatabaseManager;
-import OrderingSystem.OrderUI;
+import PaymentSystem.PaymentCash;
+import UserSystem.User;
+import PaymentSystem.PaymentCard;
+import PaymentSystem.PaymentCash;
+import PaymentSystem.ReceiptPrinter;
 
 void main(String[] args) {
     // --- Variables ---
