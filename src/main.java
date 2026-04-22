@@ -100,7 +100,7 @@ void main(String[] args) {
                 // break out of the loop
                 shouldExit = true;
                 break;
-            case 50: // Exit program
+            case 5: // Exit program
                 shouldExit = true;
                 break;
             default:

@@ -18,7 +18,7 @@ public class PaymentCash {
     }
 
     //methods
-    public static void cashPaying(){
+    public static void payingCash(){
         totalPrice = currentOrder.calculateOrderTotal();
         System.out.println("Total price: " + totalPrice);
         System.out.println("Please provide payment:");

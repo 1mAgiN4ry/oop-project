@@ -4,6 +4,10 @@ import AccountSystem.User;
 import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
 
+import PaymentSystem.PaymentCard;
+import PaymentSystem.PaymentCash;
+import PaymentSystem.ReceiptPrinter;
+
 import java.util.Scanner;
 
 public class OrderUI {
@@ -35,6 +39,9 @@ public class OrderUI {
             System.out.println("\nPlease state the number of the item you would like to order:\n");
             String inputString = input.nextLine();
 
+            PaymentCash paymentCash = new PaymentCash(currentOrder);
+            PaymentCard paymentCard = new PaymentCard(currentOrder);
+
             if  (inputString.equalsIgnoreCase("Cancel") || inputString.equalsIgnoreCase("0")) {
                 ordering = false;
                 orderPrinter.printOrderCancelled();
@@ -45,6 +52,31 @@ public class OrderUI {
                 boolean completed = orderManager.submitOrder(currentOrder);
                 if  (completed) {
                     orderPrinter.printOrderCompleted();
+                boolean paymentDone = true;
+                while (paymentDone) {
+                    System.out.println("Please select a payment method:");
+                    System.out.println("""
+                    1. Cash
+                    2. Card
+                    3. Cancel
+                    4. s o m e t h i n g    s i n i s t e r
+                    """);
+                    int paymentSwitch = input.nextInt();
+
+                    switch (paymentSwitch){
+                        case 1 :
+                            paymentCash.payingCash();
+                            paymentDone = false;
+                            break;
+                        case 2 :
+                            paymentCard.payingCard();
+                            paymentDone = false;
+                            break;
+                        case 3 :
+                            paymentDone = false;
+                            break;
+                    }
+                }
                 } else {
                     orderPrinter.printOrderSubmitFailed();
                 }
