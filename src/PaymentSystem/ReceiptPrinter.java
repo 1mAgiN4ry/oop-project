@@ -1,38 +1,26 @@
 package PaymentSystem;
-
-
 import OrderingSystem.Order;
 import MenuSystem.MenuItem;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ReceiptPrinter {
-
     //fields
-
-    static int b = 0;
     static int space = 40;  //decides the max characters allowed per line
     static int spaceNow;    //decides amount of space between the item and the price
     static Order currentOrder;
 
-
-//make fields for each of the important datatyopes (payment type, date ...) so it can be used in logging
-// plus it wont change a lot of how printer works
-
     //constructor
-
     public ReceiptPrinter(Order order){
         currentOrder = order;
     }
 
     //methods
-
     public static void mainPrinter(String paymentType, double balance){
         headerPrinter();
         itemPrinter(currentOrder);
         footerPrinter(currentOrder, paymentType, balance);
     }
-
 
     public static void itemPrinter(Order order){
         for (MenuItem item : order.getOrderItems()) {
@@ -80,8 +68,4 @@ public class ReceiptPrinter {
         }
         System.out.println();
     }
-
-
-
-
 }

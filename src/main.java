@@ -37,8 +37,10 @@ void main(String[] args) {
                 menuPrinter.printMenu(menuManager.getAllItems());
                 Order currentOrder = orderManager.startNewOrder(exampleUser);
                 orderPrinter.startOrder();
-                ReceiptPrinter currentPrinter = new ReceiptPrinter(currentOrder); //potench temporary printer object for receipts
 
+                ReceiptPrinter currentPrinter = new ReceiptPrinter(currentOrder); //potench temporary printer object for receipts
+                PaymentCash cashPayment = new PaymentCash(currentOrder);
+                PaymentCard cardPayment = new PaymentCard(currentOrder);
                 boolean ordering = true;
 
                 while (ordering) {
@@ -75,10 +77,8 @@ void main(String[] args) {
 
                 }
                 System.out.println("what about this?");
-                PaymentCash.cashPaying(currentOrder);
-                currentPrinter.mainPrinter();
-
-
+                cardPayment.payingCard();
+                //cashPayment.cashPaying();
                 break;
 
                 // Code for other functionality goes in its own case (E.g. create / delete account)

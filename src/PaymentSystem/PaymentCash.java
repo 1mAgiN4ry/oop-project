@@ -1,79 +1,41 @@
 package PaymentSystem;
-
 import OrderingSystem.Order;
-
-
 import java.util.Scanner;
 
 public class PaymentCash {
-
-
-    //simple cost - inputAmount class
-
     //fields
-
-    static double totalPrice;
-    static Scanner input = new Scanner(System.in);
+    private static double totalPrice;
+    private static Scanner input = new Scanner(System.in);
     private static double givenBalance;
-
-
-    /*
-    * get total price of items
-    * get input of how much money given
-    * get compare balance against price
-    * if balance larger than price subtract and return new balance
-    *
-    * should the classes have a private variable
-    * for the variables they need to from other classes
-    * or should they call them in the methods and not keep them anywhere?
-    *
-    *
-    * */
-
+    private static Order currentOrder;
+    private static ReceiptPrinter printer;
+    private static String paymentType = "Cash";
 
     //constructor
-    public void PaymentCard(){
-
+    public PaymentCash(Order order){
+        currentOrder = order;
+        printer = new ReceiptPrinter(currentOrder);
     }
 
     //methods
-
-
-    private void askPayment(){
-        System.out.println("Gib monet: ");
-        givenBalance = input.nextDouble();
-
-    }
-
-    public static void cashPaying(Order order){
-        totalPrice = order.calculateOrderTotal();
+    public static void cashPaying(){
+        totalPrice = currentOrder.calculateOrderTotal();
         System.out.println("Total price: " + totalPrice);
         System.out.println("Please provide payment:");
         givenBalance = input.nextDouble();
-        calculate(totalPrice, givenBalance);
-
-
-
-        // get price, show price, ask for payment, get payment,
-        // compare payment [if enough subtract total from given, return given]
-        // [if not tell not enough and try again / print failure]
-        // print receipt
-        //
-        // note before work (wed 25.3) somehow find out how to connect it in the bigger system
-        // after selecting desired items maybe switch for payment, ask what payment type then call payment type class
-        // or alt ask others for ideas
-        // also work on card and start printer
-
+        calculate(totalPrice, givenBalance, currentOrder);
     }
 
-    private static void calculate(double price, double balance){
+    private static void calculate(double price, double balance, Order order){
             if (balance >= price){
                 balance = balance - price;
                 System.out.println("Thank you, your change is: " + balance);
                 //call printer for receipt
+                printer.mainPrinter(paymentType, balance);
         } else {
                 System.out.println("Unsufficient funds to cover the cost.");
                 //call printer for failed receipt
+                printer.mainPrinter(paymentType, balance);
             }
      }
 }
