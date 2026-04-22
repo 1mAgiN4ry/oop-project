@@ -117,7 +117,7 @@ public class AccountUI {
                 "Update Phone Number"
         );
 
-        printer.displayTitle("Change user data");
+        printer.displayMenu("Change user data", options);
 
         int choice = -1;
         do {
