@@ -65,13 +65,22 @@ void main(String[] args) {
         System.out.println("""
         Please select an option:
         1: View Menu & start an Order
-        6: View user data
-        7: Update user data
-        8: Delete account
-        9: Exit
+        2: View user data
+        3: Update user data
+        4: Delete account
+        5: Exit
         """);
-        functionSwitch = input.nextInt(); // Gets user input
-        input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
+
+        while(true) {
+            try {
+                functionSwitch = input.nextInt(); // Gets user input
+                input.nextLine(); // Gets rid of buffered new line because of stupid scanner logic (Later input.nextLine would fail otherwise)
+                break;
+            } catch (InputMismatchException e) {
+                input.next();
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
 
         switch (functionSwitch) {
             case 1:
@@ -80,18 +89,18 @@ void main(String[] args) {
                 break;
             // case X: for additional functionality
             // Somewhere here handle account deletion
-            case 6: // View user data
+            case 2: // View user data
                 accountUI.displayUserData(user);
                 break;
-            case 7: // Update user data
+            case 3: // Update user data
                 user = accountUI.updateUserData(user);
                 break;
-            case 8: // Delete account
+            case 4: // Delete account
                 accountUI.deleteAccount(user);
                 // break out of the loop
                 shouldExit = true;
                 break;
-            case 9: // Exit program
+            case 50: // Exit program
                 shouldExit = true;
                 break;
             default:

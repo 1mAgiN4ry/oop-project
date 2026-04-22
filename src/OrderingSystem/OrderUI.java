@@ -41,6 +41,7 @@ public class OrderUI {
             } else if (inputString.equalsIgnoreCase("Show")) { // If 'show' inputted, print current order.
                 orderPrinter.printOrder(currentOrder);
             } else if (inputString.equalsIgnoreCase("Confirm")) { // If 'confirm' inputted, complete order and print message, break order loop.
+                orderPrinter.printOrder(currentOrder); // Print order prior to confirmation
                 boolean completed = orderManager.submitOrder(currentOrder);
                 if  (completed) {
                     orderPrinter.printOrderCompleted();
