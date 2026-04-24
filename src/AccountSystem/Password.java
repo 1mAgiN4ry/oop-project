@@ -30,7 +30,7 @@ public class Password {
         return encoder.encode(password);
     }
 
-    public boolean verify(String password, String DBHash) {
-        return encoder.matches(password, DBHash);
+    public boolean verify(String password, String hash) {
+        return encoder.matches(password, hash);
     }
 }
