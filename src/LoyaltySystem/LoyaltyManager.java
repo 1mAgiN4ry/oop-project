@@ -1,20 +1,29 @@
+package LoyaltySystem;
+
 import UserSystem.User;
 
 public class LoyaltyManager{
 
-    public GivePoints(double total, int User){
-        int CurrentPoints = currentUser.getUserLoyaltyPoints();
-        // £1 = 1 point, data loss intentional.
+    private final User user;
+
+    public LoyaltyManager(User user) {
+        this.user = user;
+    }
+
+    public GivePoints(double total){
+        int CurrentPoints = user.getLoyaltyPoints();
         int PointsEarned = (int) total;
+        // £1 = 1 point, data loss intentional.
+
         int newPoints = CurrentPoints + PointsEarned;
 
-        // Set user's loyalty points to CurrentPoints + PointsEarned
+        user.setLoyaltyPoints(newPoints);
 
-        System.out.println("\nLoyalty points given: " + newPoints + "\n");
+        System.out.println("Loyalty points given: " + newPoints);
         ViewPoints();
     }
 
     void ViewPoints(){
-        System.out.println("\nCurrent loyalty points: " + currentUser.getUserLoyaltyPoints() + "\n");
-    };
+        System.out.println("\nCurrent loyalty points: " + currentUser.getLoyaltyPoints());
+    }
 }
