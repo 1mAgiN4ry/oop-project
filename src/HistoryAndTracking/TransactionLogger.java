@@ -2,7 +2,6 @@ package HistoryAndTracking;
 
 import OrderingSystem.Transaction;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +18,7 @@ public class TransactionLogger {
     user ID
      */
 
-    public void logTransation(Transaction transaction){
+    public void logTransaction(Transaction transaction){
         LogPrinter logPrinter = new LogPrinter();
         List<Transaction> transactionList = logPrinter.getTransactions();
         transactionList.add(transaction);

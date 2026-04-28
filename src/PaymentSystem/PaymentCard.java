@@ -17,7 +17,7 @@ public class PaymentCard {
         askCardNumber();
         askCvcNumber();
         askExpNumber();
-        trans();
+        transaction();
     }
 
     public static void askCardNumber() {//trying using Regex for the 16 numbers itd itd itd
@@ -68,10 +68,10 @@ public class PaymentCard {
         }
     }
 
-    public static void trans() {
+    public static void transaction() {
         System.out.println("Checking balance...");
         System.out.println("Transaction completed");
-        double test = 1;
+        double test = 0;
         String paymentType = "Card";
         printer.mainPrinter(paymentType, test);
     }

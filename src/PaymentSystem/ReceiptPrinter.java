@@ -6,7 +6,6 @@ import MenuSystem.MenuItem;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import LoyaltySystem.LoyaltyManager;
 import OrderingSystem.Transaction;
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ public class ReceiptPrinter {
     static int spaceNow;    //decides amount of space between the item and the price
     static Order currentOrder;
     static LocalDateTime myDateTime;
-    static double finalPrice;
 
     //constructor
     public ReceiptPrinter(Order order){
@@ -34,7 +32,7 @@ public class ReceiptPrinter {
         footerPrinter(currentOrder, paymentType, balance);
         Transaction transaction = new Transaction(myDateTime.toString(), currentOrder.calculateOrderTotal(), paymentType, currentOrder.getOrderUser().getUid());
         TransactionLogger transactionLogger = new TransactionLogger();
-        transactionLogger.logTransation(transaction);
+        transactionLogger.logTransaction(transaction);
         LogPrinter logPrinter = new LogPrinter();
         List<Transaction> transactionList = logPrinter.getTransactions();
         System.out.println(transactionList);

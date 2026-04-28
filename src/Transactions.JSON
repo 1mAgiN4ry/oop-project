@@ -68,4 +68,9 @@
   "totalPrice" : 37.97,
   "paymentType" : "Cash",
   "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T22:19:33.542985",
+  "totalPrice" : 34.97,
+  "paymentType" : "Card",
+  "id" : 2
 } ]
