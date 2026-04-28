@@ -4,12 +4,9 @@ import java.util.Scanner;
 
 public class PaymentCash {
     //fields
-    private static double totalPrice;
-    private static Scanner input = new Scanner(System.in);
-    private static double givenBalance;
+    private static final Scanner input = new Scanner(System.in);
     private static Order currentOrder;
     private static ReceiptPrinter printer;
-    private static String paymentType = "Cash";
 
     //constructor
     public PaymentCash(Order order){
@@ -19,23 +16,28 @@ public class PaymentCash {
 
     //methods
     public static void payingCash(){
-        totalPrice = currentOrder.calculateOrderTotal();
+        double totalPrice = currentOrder.calculateOrderTotal();
         System.out.println("Total price: " + totalPrice);
         System.out.println("Please provide payment:");
-        givenBalance = input.nextDouble();
+        double givenBalance = input.nextDouble();
         calculate(totalPrice, givenBalance, currentOrder);
     }
 
-    private static void calculate(double price, double balance, Order order){
-            if (balance >= price){
+    private static void calculate(double price, double balance, Order order) {
+        String paymentType = "Cash";
+        boolean payed = true;
+        while (payed) {
+            if (balance >= price) {
                 balance = balance - price;
                 System.out.println("Thank you, your change is: " + balance);
                 //call printer for receipt
                 printer.mainPrinter(paymentType, balance);
-        } else {
+                payed = false;
+            } else {
                 System.out.println("Unsufficient funds to cover the cost.");
-                //call printer for failed receipt
-                printer.mainPrinter(paymentType, balance);
+                System.out.println("Try again");
             }
-     }
+        }
+    }
 }
+

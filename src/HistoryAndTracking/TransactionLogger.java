@@ -26,8 +26,6 @@ public class TransactionLogger {
         File Logfile = new File("src/Transactions.JSON");
 
         try {
-
-
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(Logfile, transactionList);
         } catch (IOException e) {

@@ -3,21 +3,12 @@ import OrderingSystem.Order;
 import java.util.Scanner;
 
 public class PaymentCard {
-    //fields
-    private static double test = 1;
-    private static String cardNumber;
-    private static String cvcNumb;
-    private static String expNumb;
-    private Order currentOrder;
-    private static String paymentType = "Card";
-    private static Scanner input = new Scanner(System.in);
-    private static ReceiptPrinter printer;
-
+    private static final Scanner input = new Scanner(System.in);
+    static ReceiptPrinter printer;
 
     //constructor
     public PaymentCard(Order order) {
-        currentOrder = order;
-        printer = new ReceiptPrinter(currentOrder);
+        printer = new ReceiptPrinter(order);
     }
 
 
@@ -32,17 +23,17 @@ public class PaymentCard {
     public static void askCardNumber() {//trying using Regex for the 16 numbers itd itd itd
         boolean done = true;
         while (done) {
-            System.out.println("please enter the card number: ");
-            cardNumber = input.nextLine();
+            System.out.println("Please enter the card number: ");
+            String cardNumber = input.nextLine();
             if (cardNumber.length() < 16) {
-                System.out.println("not enough numbers");
-                System.out.println("try again");
+                System.out.println("Card number length insufficient");
+                System.out.println("Try again");
             } else if (cardNumber.length() == 16) {
-                System.out.println("ay thanks mate");
+                System.out.println("Card number accepted");
                 done = false;
-            } else if (cardNumber.length() > 16) {
-                System.out.println("too much numbers");
-                System.out.println("try again");
+            } else {
+                System.out.println("Card number length too long");
+                System.out.println("Try again");
             }
         }
     }
@@ -50,14 +41,14 @@ public class PaymentCard {
     public static void askCvcNumber() {
         boolean done = true;
         while (done) { //move all to a new method "askCvcNumber"?
-            System.out.println("please enter the cvc number: ");
-            cvcNumb = input.nextLine();
+            System.out.println("Please enter the CVC number: ");
+            String cvcNumb = input.nextLine();
             if (cvcNumb.length() == 3) {
-                System.out.println("nice cvc gotten");
+                System.out.println("CVC number accepted");
                 done = false;
-            } else if (cvcNumb.length() != 3) {
-                System.out.println("kill yourself");
-                System.out.println("try a-fucking-gain");
+            } else {
+                System.out.println("CVC number unaccepted");
+                System.out.println("CVC number should be the length of 3");
             }
         }
     }
@@ -65,21 +56,23 @@ public class PaymentCard {
     public static void askExpNumber() {
         boolean done = true;
         while (done) {
-            System.out.println("please enter the expiration number: ");
-            expNumb = input.nextLine();
+            System.out.println("Please enter the expiration number: ");
+            String expNumb = input.nextLine();
             if (expNumb.length() == 4) {
-                System.out.println("yea thatlll do it for exp");
+                System.out.println("Expiration number accepted");
                 done = false;
-            } else if (expNumb.length() != 4) {
-                System.out.println("are you fucking stupid?");
-                System.out.println("again");
+            } else {
+                System.out.println("Unaccepted date");
+                System.out.println("Try again");
             }
         }
     }
 
     public static void trans() {
-        System.out.println("Checking ballance...");
+        System.out.println("Checking balance...");
         System.out.println("Transaction completed");
+        double test = 1;
+        String paymentType = "Card";
         printer.mainPrinter(paymentType, test);
     }
 }
