@@ -44,6 +44,13 @@ public class Order {
 
     }
 
+    //getter for UserId
+
+
+    public User getOrderUser() {
+        return orderUser;
+    }
+
     public ArrayList<MenuItem> getOrderItems() {
         return orderItems;
     }

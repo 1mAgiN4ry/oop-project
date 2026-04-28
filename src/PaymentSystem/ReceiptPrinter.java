@@ -1,15 +1,25 @@
 package PaymentSystem;
+import HistoryAndTracking.LogPrinter;
+import HistoryAndTracking.TransactionLogger;
 import OrderingSystem.Order;
 import MenuSystem.MenuItem;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import LoyaltySystem.LoyaltyManager;
+import OrderingSystem.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReceiptPrinter {
+    private static final Logger log = LoggerFactory.getLogger(ReceiptPrinter.class);
     //fields
     static int space = 40;  //decides the max characters allowed per line
     static int spaceNow;    //decides amount of space between the item and the price
     static Order currentOrder;
+    static LocalDateTime myDateTime;
+    static double finalPrice;
 
     //constructor
     public ReceiptPrinter(Order order){
@@ -21,6 +31,12 @@ public class ReceiptPrinter {
         headerPrinter();
         itemPrinter(currentOrder);
         footerPrinter(currentOrder, paymentType, balance);
+        Transaction transaction = new Transaction(myDateTime.toString(), currentOrder.calculateOrderTotal(), paymentType, currentOrder.getOrderUser().getUid());
+        TransactionLogger transactionLogger = new TransactionLogger();
+        transactionLogger.logTransation(transaction);
+        LogPrinter logPrinter = new LogPrinter();
+        List<Transaction> transactionList = logPrinter.getTransactions();
+        System.out.println(transactionList);
     }
 
     public static void itemPrinter(Order order){
@@ -36,7 +52,7 @@ public class ReceiptPrinter {
     }
 
     static void headerPrinter(){
-        LocalDateTime myDateTime = LocalDateTime.now(); //find and reference original code
+        myDateTime = LocalDateTime.now(); //find and reference original code
         DateTimeFormatter myFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String formattedDate = myDateTime.format(myFormater);
         dashPrinter(space);
@@ -53,7 +69,7 @@ public class ReceiptPrinter {
         if(paymentType == "Cash"){
             System.out.println("Change given: " + balance);
         }
-        LoyaltyManager.GivePoints(balance);
+        //LoyaltyManager.GivePoints(balance);
         dashPrinter(space);
     }
 
