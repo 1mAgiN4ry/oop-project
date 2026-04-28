@@ -12,11 +12,6 @@ import MenuSystem.MenuPrinter;
 import OrderingSystem.OrderManager;
 import OrderingSystem.OrderPrinter;
 import OrderingSystem.OrderUI;
-import PaymentSystem.PaymentCash;
-import AccountSystem.User;
-import PaymentSystem.PaymentCard;
-import PaymentSystem.PaymentCash;
-import PaymentSystem.ReceiptPrinter;
 
 void main(String[] args) {
     // --- Variables ---
@@ -84,11 +79,9 @@ void main(String[] args) {
 
         switch (functionSwitch) {
             case 1:
-                OrderUI orderUI = new OrderUI(menuManager, menuPrinter, orderManager, orderPrinter, user);
+                OrderUI orderUI = new OrderUI(menuManager, menuPrinter, orderManager, orderPrinter, user, accountService);
                 orderUI.viewMenuAndStartOrder();
                 break;
-            // case X: for additional functionality
-            // Somewhere here handle account deletion
             case 2: // View user data
                 accountUI.displayUserData(user);
                 break;

@@ -48,4 +48,8 @@ public class AccountService {
         if (!userRepo.verifyPassword(user.getUsername(), password)) throw new RuntimeException("Incorrect password");
         userRepo.deleteUser(user);
     }
+
+    public void updateLoyaltyPoints(User user) {
+        userRepo.updateLoyaltyPoints(user);
+    }
 }

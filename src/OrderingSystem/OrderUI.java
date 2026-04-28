@@ -1,12 +1,12 @@
 package OrderingSystem;
 
+import AccountSystem.AccountService;
 import AccountSystem.User;
 import MenuSystem.MenuManager;
 import MenuSystem.MenuPrinter;
 
 import PaymentSystem.PaymentCard;
 import PaymentSystem.PaymentCash;
-import PaymentSystem.ReceiptPrinter;
 
 import java.util.Scanner;
 
@@ -16,13 +16,15 @@ public class OrderUI {
     private final OrderManager orderManager;
     private final OrderPrinter orderPrinter;
     private final User user;
+    private final AccountService accountService;
 
-    public OrderUI(MenuManager pMenuManager, MenuPrinter pMenuPrinter, OrderManager pOrderManager, OrderPrinter pOrderPrinter, User pUser) {
+    public OrderUI(MenuManager pMenuManager, MenuPrinter pMenuPrinter, OrderManager pOrderManager, OrderPrinter pOrderPrinter, User pUser, AccountService pAccountService) {
         menuManager = pMenuManager;
         menuPrinter = pMenuPrinter;
         orderManager = pOrderManager;
         orderPrinter = pOrderPrinter;
         user = pUser;
+        accountService = pAccountService;
     }
 
     public void viewMenuAndStartOrder() {
@@ -42,6 +44,7 @@ public class OrderUI {
             PaymentCash paymentCash = new PaymentCash(currentOrder);
             PaymentCard paymentCard = new PaymentCard(currentOrder);
 
+
             if  (inputString.equalsIgnoreCase("Cancel") || inputString.equalsIgnoreCase("0")) {
                 ordering = false;
                 orderPrinter.printOrderCancelled();
@@ -52,31 +55,33 @@ public class OrderUI {
                 boolean completed = orderManager.submitOrder(currentOrder);
                 if  (completed) {
                     orderPrinter.printOrderCompleted();
-                boolean paymentDone = true;
-                while (paymentDone) {
-                    System.out.println("Please select a payment method:");
-                    System.out.println("""
-                    1. Cash
-                    2. Card
-                    3. Cancel
-                    """);
-                    int paymentSwitch = input.nextInt();
+                    boolean paymentDone = true;
+                    while (paymentDone) {
+                        System.out.println("Please select a payment method:");
+                        System.out.println("""
+                        1. Cash
+                        2. Card
+                        3. Cancel
+                        """);
+                        int paymentSwitch = input.nextInt();
 
-                    switch (paymentSwitch){
-                        case 1 :
-                            paymentCash.payingCash();
-                            paymentDone = false;
-                            break;
-                        case 2 :
-                            paymentCard.payingCard();
-                            paymentDone = false;
-                            break;
-                        case 3 :
-                            System.out.println("Order canceled");
-                            paymentDone = false;
-                            break;
+                        switch (paymentSwitch){
+                            case 1 :
+                                paymentCash.payingCash();
+                                accountService.updateLoyaltyPoints(user);
+                                paymentDone = false;
+                                break;
+                            case 2 :
+                                paymentCard.payingCard();
+                                accountService.updateLoyaltyPoints(user);
+                                paymentDone = false;
+                                break;
+                            case 3 :
+                                System.out.println("Order canceled");
+                                paymentDone = false;
+                                break;
+                        }
                     }
-                }
                 } else {
                     orderPrinter.printOrderSubmitFailed();
                 }
