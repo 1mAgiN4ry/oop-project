@@ -56,9 +56,9 @@ public class ReceiptPrinter {
         DateTimeFormatter myFormater = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         String formattedDate = myDateTime.format(myFormater);
         dashPrinter(space);
-        System.out.println("ginoes pizzzaaaaaaaaaaaaaaaa");
-        System.out.println("adress informationen");
-        System.out.println("Date and tioum of purchase: " + formattedDate);
+        System.out.println("Gino's Cafeteria");
+        System.out.println("[address information]");
+        System.out.println("Date & Time of purchase: " + formattedDate);
         dashPrinter(space);
     }
 
