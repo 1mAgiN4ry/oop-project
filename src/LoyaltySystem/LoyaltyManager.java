@@ -4,7 +4,13 @@ import AccountSystem.User;
 
 public class LoyaltyManager{
 
-    public void GivePoints(double total, User user){
+    private static User user;
+
+    public LoyaltyManager(User user) {
+        this.user = user;
+    }
+
+    public static void GivePoints(double total){
         int CurrentPoints = user.getLoyaltyPoints();
         // £1 = 1 point, data loss intentional.
         int PointsEarned = (int) total;
@@ -13,10 +19,10 @@ public class LoyaltyManager{
         // Set user's loyalty points to CurrentPoints + PointsEarned
 
         System.out.println("\nLoyalty points given: " + newPoints + "\n");
-        ViewPoints(user);
+        ViewPoints();
     }
 
-    public void ViewPoints(User user){
+    public static void ViewPoints(){
         System.out.println("\nCurrent loyalty points: " + user.getLoyaltyPoints() + "\n");
     }
 }

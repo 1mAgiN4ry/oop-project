@@ -3,6 +3,7 @@ import OrderingSystem.Order;
 import MenuSystem.MenuItem;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import LoyaltySystem.LoyaltyManager;
 
 public class ReceiptPrinter {
     //fields
@@ -52,7 +53,7 @@ public class ReceiptPrinter {
         if(paymentType == "Cash"){
             System.out.println("Change given: " + balance);
         }
-        System.out.println("You received points!"); //temp
+        LoyaltyManager.GivePoints(balance);
         dashPrinter(space);
     }
 
