@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class ReceiptPrinter {
     private static final Logger log = LoggerFactory.getLogger(ReceiptPrinter.class);
     //fields
-    static int space = 40;  //decides the max characters allowed per line
+    static int space = 50;  //decides the max characters allowed per line
     static int spaceNow;    //decides amount of space between the item and the price
     static Order currentOrder;
     static LocalDateTime myDateTime;
@@ -24,6 +24,7 @@ public class ReceiptPrinter {
     //constructor
     public ReceiptPrinter(Order order){
         currentOrder = order;
+        LoyaltyManager loyaltyManager = new LoyaltyManager(currentOrder.getOrderUser());
     }
 
     //methods
@@ -69,7 +70,7 @@ public class ReceiptPrinter {
         if(paymentType == "Cash"){
             System.out.println("Change given: " + balance);
         }
-        //LoyaltyManager.GivePoints(balance);
+        LoyaltyManager.GivePoints(currentOrder.calculateOrderTotal());
         dashPrinter(space);
     }
 

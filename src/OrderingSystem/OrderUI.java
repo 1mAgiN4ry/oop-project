@@ -59,7 +59,6 @@ public class OrderUI {
                     1. Cash
                     2. Card
                     3. Cancel
-                    4. s o m e t h i n g    s i n i s t e r
                     """);
                     int paymentSwitch = input.nextInt();
 
@@ -73,6 +72,7 @@ public class OrderUI {
                             paymentDone = false;
                             break;
                         case 3 :
+                            System.out.println("Order canceled");
                             paymentDone = false;
                             break;
                     }

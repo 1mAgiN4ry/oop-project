@@ -17,12 +17,13 @@ public class LoyaltyManager{
         int newPoints = CurrentPoints + PointsEarned;
 
         // Set user's loyalty points to CurrentPoints + PointsEarned
+        user.setLoyaltyPoints(newPoints);
 
-        System.out.println("\nLoyalty points given: " + newPoints + "\n");
+        System.out.println("Loyalty points given: " + PointsEarned);
         ViewPoints();
     }
 
     public static void ViewPoints(){
-        System.out.println("\nCurrent loyalty points: " + user.getLoyaltyPoints() + "\n");
+        System.out.println("Current loyalty points: " + user.getLoyaltyPoints());
     }
 }

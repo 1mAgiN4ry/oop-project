@@ -33,4 +33,39 @@
   "totalPrice" : 31.98,
   "paymentType" : "Card",
   "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:16:58.715802200",
+  "totalPrice" : 15.99,
+  "paymentType" : "Cash",
+  "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:21:41.117080",
+  "totalPrice" : 15.99,
+  "paymentType" : "Cash",
+  "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:22:26.026860500",
+  "totalPrice" : 15.99,
+  "paymentType" : "Cash",
+  "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:23:39.816107700",
+  "totalPrice" : 15.99,
+  "paymentType" : "Cash",
+  "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:24:07.772811900",
+  "totalPrice" : 21.98,
+  "paymentType" : "Card",
+  "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:31:58.413135900",
+  "totalPrice" : 15.99,
+  "paymentType" : "Cash",
+  "id" : 2
+}, {
+  "dateAndTime" : "2026-04-28T20:32:19.253446",
+  "totalPrice" : 37.97,
+  "paymentType" : "Cash",
+  "id" : 2
 } ]
